@@ -1,5 +1,6 @@
 import type { ModelMetadata, ProviderMetadata } from './types.js'
 import anthropic from './data/anthropic.json' with { type: 'json' }
+import deepinfra from './data/deepinfra.json' with { type: 'json' }
 import deepseek from './data/deepseek.json' with { type: 'json' }
 import google from './data/google.json' with { type: 'json' }
 import groq from './data/groq.json' with { type: 'json' }
@@ -17,6 +18,7 @@ const RAW_PROVIDERS = [
   groq,
   google,
   deepseek,
+  deepinfra,
   openrouter,
   huggingface,
 ] as const

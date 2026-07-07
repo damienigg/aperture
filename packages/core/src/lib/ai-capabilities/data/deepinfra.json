@@ -1,0 +1,116 @@
+{
+  "id": "deepinfra",
+  "name": "DeepInfra",
+  "type": "cloud",
+  "website": "https://deepinfra.com",
+  "logoPath": "/deepinfra.svg",
+  "supportsEmbeddings": true,
+  "supportsChat": true,
+  "supportsTextGeneration": true,
+  "supportsExploration": true,
+  "requiresApiKey": true,
+  "requiresBaseUrl": false,
+  "defaultBaseUrl": "https://api.deepinfra.com/v1",
+  "embeddingModels": [
+    {
+      "id": "Qwen/Qwen3-Embedding-0.6B",
+      "name": "Qwen3 Embedding 0.6B",
+      "description": "Fast Qwen3 embedding model. Best speed/cost for the quality.",
+      "capabilities": {
+        "supportsToolCalling": false,
+        "supportsToolStreaming": false,
+        "supportsObjectGeneration": false,
+        "supportsEmbeddings": true
+      },
+      "embeddingDimensions": 1024,
+      "quality": "budget",
+      "costTier": "low",
+      "inputCostPerMillion": 0.01
+    },
+    {
+      "id": "Qwen/Qwen3-Embedding-4B",
+      "name": "Qwen3 Embedding 4B",
+      "description": "Mid-size Qwen3 embedding model with strong quality at a reasonable price.",
+      "capabilities": {
+        "supportsToolCalling": false,
+        "supportsToolStreaming": false,
+        "supportsObjectGeneration": false,
+        "supportsEmbeddings": true
+      },
+      "embeddingDimensions": 2560,
+      "quality": "standard",
+      "costTier": "low",
+      "inputCostPerMillion": 0.02
+    },
+    {
+      "id": "Qwen/Qwen3-Embedding-8B",
+      "name": "Qwen3 Embedding 8B",
+      "description": "High-quality Qwen3 embedding model with rich 4096-dimensional vectors.",
+      "capabilities": {
+        "supportsToolCalling": false,
+        "supportsToolStreaming": false,
+        "supportsObjectGeneration": false,
+        "supportsEmbeddings": true
+      },
+      "embeddingDimensions": 4096,
+      "quality": "premium",
+      "costTier": "low",
+      "inputCostPerMillion": 0.01
+    }
+  ],
+  "chatModels": [
+    {
+      "id": "Qwen/Qwen3-32B",
+      "name": "Qwen3 32B",
+      "description": "Fast, very cost-effective Qwen3 model for general chat and tool use.",
+      "capabilities": {
+        "supportsToolCalling": true,
+        "supportsToolStreaming": true,
+        "supportsObjectGeneration": true,
+        "supportsEmbeddings": false
+      },
+      "quality": "budget",
+      "speed": "fast",
+      "costTier": "low",
+      "contextWindow": "40K",
+      "inputCostPerMillion": 0.08,
+      "outputCostPerMillion": 0.28
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V3.2",
+      "name": "DeepSeek V3.2",
+      "description": "Excellent price/performance model with tool calling support.",
+      "capabilities": {
+        "supportsToolCalling": true,
+        "supportsToolStreaming": true,
+        "supportsObjectGeneration": true,
+        "supportsEmbeddings": false
+      },
+      "quality": "standard",
+      "speed": "fast",
+      "costTier": "low",
+      "contextWindow": "160K",
+      "inputCostPerMillion": 0.26,
+      "outputCostPerMillion": 0.38
+    },
+    {
+      "id": "deepseek-ai/DeepSeek-V4-Pro",
+      "name": "DeepSeek V4 Pro",
+      "description": "DeepSeek's high-quality flagship model with strong reasoning.",
+      "capabilities": {
+        "supportsToolCalling": true,
+        "supportsToolStreaming": true,
+        "supportsObjectGeneration": true,
+        "supportsEmbeddings": false
+      },
+      "quality": "premium",
+      "speed": "medium",
+      "costTier": "medium",
+      "contextWindow": "1M",
+      "inputCostPerMillion": 1.3,
+      "outputCostPerMillion": 2.6
+    }
+  ],
+  "textGenerationModels": [],
+  "explorationModels": []
+}

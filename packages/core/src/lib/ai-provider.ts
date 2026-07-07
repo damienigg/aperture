@@ -12,6 +12,7 @@ import { createOllama } from 'ai-sdk-ollama'
 import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { createGroq } from '@ai-sdk/groq'
 import { createDeepSeek } from '@ai-sdk/deepseek'
+import { createDeepInfra } from '@ai-sdk/deepinfra'
 import { createOpenRouter } from '@openrouter/ai-sdk-provider'
 import { createHuggingFace } from '@ai-sdk/huggingface'
 import type { LanguageModel, EmbeddingModel } from 'ai'
@@ -41,6 +42,7 @@ export type ProviderType =
   | 'groq'
   | 'google'
   | 'deepseek'
+  | 'deepinfra'
   | 'openrouter'
   | 'huggingface'
 
@@ -272,6 +274,13 @@ function createProviderInstance(providerConfig: ProviderConfig): unknown {
       })
       break
 
+    case 'deepinfra':
+      instance = createDeepInfra({
+        apiKey: providerConfig.apiKey,
+        baseURL: providerConfig.baseUrl,
+      })
+      break
+
       case 'openrouter':
         instance = createOpenRouter({
           apiKey: providerConfig.apiKey,
@@ -336,6 +345,10 @@ export async function getEmbeddingModelInstance(): Promise<EmbeddingModel<string
     case 'huggingface':
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
       return (provider as any).textEmbeddingModel(modelId)
+
+    case 'deepinfra':
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (provider as any).embeddingModel(modelId)
 
     default:
       throw new Error(`Provider ${config.provider} does not support embeddings`)
@@ -546,7 +559,7 @@ export async function getActiveEmbeddingModelId(): Promise<string | null> {
  * Valid embedding dimensions supported by the system.
  * Each dimension has a corresponding table (e.g., embeddings_768, embeddings_3072)
  */
-export const VALID_EMBEDDING_DIMENSIONS = [256, 384, 512, 768, 1024, 1536, 3072, 4096] as const
+export const VALID_EMBEDDING_DIMENSIONS = [256, 384, 512, 768, 1024, 1536, 2560, 3072, 4096] as const
 
 export type ValidEmbeddingDimension = (typeof VALID_EMBEDDING_DIMENSIONS)[number]
 

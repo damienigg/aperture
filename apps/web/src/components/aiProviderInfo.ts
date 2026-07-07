@@ -6,6 +6,7 @@ export type ProviderType =
   | 'google'
   | 'openai-compatible'
   | 'deepseek'
+  | 'deepinfra'
   | 'openrouter'
   | 'huggingface'
 
@@ -72,6 +73,15 @@ export const PROVIDER_INFO: Record<ProviderType, ProviderInfo> = {
     requiresBaseUrl: false,
     website: 'https://platform.deepseek.com',
     logoPath: '/deepseek.svg',
+  },
+  deepinfra: {
+    id: 'deepinfra',
+    name: 'DeepInfra',
+    type: 'cloud',
+    requiresApiKey: true,
+    requiresBaseUrl: false,
+    website: 'https://deepinfra.com',
+    logoPath: '/deepinfra.svg',
   },
   ollama: {
     id: 'ollama',
