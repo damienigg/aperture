@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "Wichtig:",
     "symlinkWarningBody": "Symlinks erfordern, dass Aperture auf deine Mediendateien unter exakt denselben Pfaden zugreifen kann, die dein Mediaserver nutzt. Wenn du Aperture in Docker betreibst, stelle sicher, dass die Volume-Mounts übereinstimmen.",
     "saving": "Speichere…",
-    "saveChanges": "Änderungen speichern"
+    "saveChanges": "Änderungen speichern",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Klicke, um eine Liste auszuwählen…",

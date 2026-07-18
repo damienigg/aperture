@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "Importante:",
     "symlinkWarningBody": "Os links simbólicos exigem que o Aperture possa acessar seus arquivos de mídia exatamente nos mesmos caminhos que seu servidor de mídia usa. Se você estiver executando o Aperture no Docker, certifique-se de que as montagens de volume correspondam.",
     "saving": "Salvando…",
-    "saveChanges": "Salvar alterações"
+    "saveChanges": "Salvar alterações",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Clique para selecionar uma lista…",

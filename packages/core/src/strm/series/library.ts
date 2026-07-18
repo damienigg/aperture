@@ -9,7 +9,7 @@ import path from 'path'
 import { createChildLogger } from '../../lib/logger.js'
 import { query, queryOne } from '../../lib/db.js'
 import { getMediaServerProvider } from '../../media/index.js'
-import { getMediaServerApiKey } from '../../settings/systemSettings.js'
+import { getMediaServerApiKey, getAiLibraryRestrictionConfig } from '../../settings/systemSettings.js'
 import { getConfig } from '../config.js'
 import { getEffectiveLibraryTitle } from '../../lib/userSettings.js'
 import { syncLibraryTypeImage } from '../../uploads/mediaServerSync.js'
@@ -173,6 +173,7 @@ export async function updateUserSeriesLibraryPermissions(
 ): Promise<void> {
   const provider = await getMediaServerProvider()
   const apiKey = await getMediaServerApiKey()
+  const restrictionConfig = await getAiLibraryRestrictionConfig()
 
   if (!apiKey) {
     throw new Error('MEDIA_SERVER_API_KEY is required')
@@ -219,6 +220,12 @@ export async function updateUserSeriesLibraryPermissions(
   // Set sort preference for this library (DateCreated descending)
   if (library.provider_library_id) {
     await provider.setLibrarySortPreference(apiKey, providerUserId, library.provider_library_id)
+  }
+
+  // If restriction is enabled, restrict this library to the owner only
+  if (restrictionConfig.restrictToOwner) {
+    await provider.restrictLibraryToOwner(apiKey, library.provider_library_guid, providerUserId)
+    logger.info({ userId, libraryGuid: library.provider_library_guid }, 'Restricted series library to owner only')
   }
 }
 

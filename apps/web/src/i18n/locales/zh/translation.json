@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "重要的：",
     "symlinkWarningBody": "符号链接要求 Aperture 可以通过与媒体服务器使用的完全相同的路径访问您的媒体文件。 如果您在 Docker 中运行 Aperture，请确保卷安装匹配。",
     "saving": "保存…",
-    "saveChanges": "保存更改"
+    "saveChanges": "保存更改",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "单击以选择列表...",

@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "重要：",
     "symlinkWarningBody": "シンボリックリンクでは、Aperture がメディア サーバーが使用するのとまったく同じパスでメディア ファイルにアクセスできる必要があります。 Docker で Aperture を実行している場合は、ボリューム マウントが一致していることを確認してください。",
     "saving": "保存中…",
-    "saveChanges": "変更を保存"
+    "saveChanges": "変更を保存",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "クリックしてリストを選択します…",

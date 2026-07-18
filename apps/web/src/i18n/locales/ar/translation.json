@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "مهم:",
     "symlinkWarningBody": "تتطلب الروابط الرمزية أن يتمكن Aperture من الوصول إلى ملفات الوسائط الخاصة بك بنفس المسارات التي يستخدمها خادم الوسائط الخاص بك. إذا كنت تقوم بتشغيل Aperture في Docker، فتأكد من تطابق وحدات التخزين.",
     "saving": "توفير…",
-    "saveChanges": "حفظ التغييرات"
+    "saveChanges": "حفظ التغييرات",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "انقر لتحديد قائمة...",

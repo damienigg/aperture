@@ -618,6 +618,7 @@ function isValidChatAssistantModel(model: string): model is ChatAssistantModel {
 export interface AiRecsOutputConfig {
   moviesUseSymlinks: boolean
   seriesUseSymlinks: boolean
+  restrictToOwner: boolean
 }
 
 /**
@@ -626,9 +627,11 @@ export interface AiRecsOutputConfig {
 export async function getAiRecsOutputConfig(): Promise<AiRecsOutputConfig> {
   const movies = await getSystemSetting('ai_recs_movies_use_symlinks')
   const series = await getSystemSetting('ai_recs_series_use_symlinks')
+  const restrictToOwner = await getSystemSetting('restrict_ai_library_to_owner')
   return {
     moviesUseSymlinks: movies !== 'false', // Defaults to true (symlinks recommended)
     seriesUseSymlinks: series !== 'false', // Defaults to true (symlinks recommended)
+    restrictToOwner: restrictToOwner !== 'false', // Defaults to true (privacy by default)
   }
 }
 
@@ -650,6 +653,13 @@ export async function setAiRecsOutputConfig(
       'ai_recs_series_use_symlinks',
       String(config.seriesUseSymlinks),
       'Use symlinks instead of STRM files for AI Series library'
+    )
+  }
+  if (config.restrictToOwner !== undefined) {
+    await setSystemSetting(
+      'restrict_ai_library_to_owner',
+      String(config.restrictToOwner),
+      'Restrict AI recommendation libraries to be visible only to their owner. When true, non-admin users will not see other users\' AI libraries. Warning: Users with "Enable all folders" will still see all libraries.'
     )
   }
   return getAiRecsOutputConfig()
@@ -1671,4 +1681,44 @@ export async function setGenreStripSeriesIds(ids: number[]): Promise<void> {
   await setGenreStripSeriesRows(
     ids.map((id) => ({ genreIds: [id], limit: GENRE_STRIP_DEFAULT_ROW_LIMIT }))
   )
+}
+
+// ============================================================================
+// AI Library Visibility Restriction Settings
+// ============================================================================
+
+export interface AiLibraryRestrictionConfig {
+  /** 
+   * When true, AI recommendation libraries are restricted to be visible only to their owner.
+   * This prevents other non-admin users from seeing each other's AI recommendation libraries.
+   * Note: Users with "Enable all folders" will still see all libraries as this is a global setting.
+   */
+  restrictToOwner: boolean
+}
+
+/**
+ * Get AI library visibility restriction configuration
+ */
+export async function getAiLibraryRestrictionConfig(): Promise<AiLibraryRestrictionConfig> {
+  const restrictToOwner = await getSystemSetting('restrict_ai_library_to_owner')
+  
+  return {
+    restrictToOwner: restrictToOwner !== 'false', // Default to true for privacy
+  }
+}
+
+/**
+ * Set AI library visibility restriction configuration
+ */
+export async function setAiLibraryRestrictionConfig(
+  config: Partial<AiLibraryRestrictionConfig>
+): Promise<AiLibraryRestrictionConfig> {
+  if (config.restrictToOwner !== undefined) {
+    await setSystemSetting(
+      'restrict_ai_library_to_owner',
+      String(config.restrictToOwner),
+      'Restrict AI recommendation libraries to be visible only to their owner. When true, non-admin users will not see other users\' AI libraries. Warning: Users with "Enable all folders" will still see all libraries.'
+    )
+  }
+  return getAiLibraryRestrictionConfig()
 }

@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "महत्वपूर्ण:",
     "symlinkWarningBody": "सिम्लिंक के लिए आवश्यक है कि एपर्चर आपकी मीडिया फ़ाइलों को ठीक उसी पथ पर एक्सेस कर सके जो आपका मीडिया सर्वर उपयोग करता है। यदि आप डॉकर में एपर्चर चला रहे हैं, तो सुनिश्चित करें कि वॉल्यूम माउंट मेल खाता हो।",
     "saving": "सहेजा जा रहा है...",
-    "saveChanges": "परिवर्तनों को सुरक्षित करें"
+    "saveChanges": "परिवर्तनों को सुरक्षित करें",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "सूची चुनने के लिए क्लिक करें...",

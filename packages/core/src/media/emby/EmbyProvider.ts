@@ -36,6 +36,7 @@ import {
   updateUserLibraryAccess,
   refreshLibrary,
   setLibrarySortPreference,
+  restrictLibraryToOwner,
 } from './libraries.js'
 import { getMovies, getMovieById, getWatchHistory, markMovieUnplayed } from './movies.js'
 import {
@@ -132,6 +133,14 @@ export class EmbyProvider extends EmbyProviderBase implements MediaServerProvide
 
   async refreshLibrary(apiKey: string, libraryId: string): Promise<void> {
     return refreshLibrary(this, apiKey, libraryId)
+  }
+
+  async restrictLibraryToOwner(
+    apiKey: string,
+    libraryGuid: string,
+    ownerUserId: string
+  ): Promise<void> {
+    return restrictLibraryToOwner(this, apiKey, libraryGuid, ownerUserId)
   }
 
   async setLibrarySortPreference(

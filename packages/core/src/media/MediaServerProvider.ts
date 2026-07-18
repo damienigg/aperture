@@ -110,6 +110,16 @@ export interface MediaServerProvider {
   refreshLibrary(apiKey: string, libraryId: string): Promise<void>
 
   /**
+   * Restrict library access to owner only by removing it from other users' permissions
+   * This is called when the restrict_ai_library_to_owner setting is enabled
+   */
+  restrictLibraryToOwner(
+    apiKey: string,
+    libraryGuid: string,
+    ownerUserId: string
+  ): Promise<void>
+
+  /**
    * Set the default sort order for a library for a specific user
    * This affects the initial view when the user first visits the library
    */

@@ -236,6 +236,51 @@ export async function refreshLibrary(
 }
 
 /**
+ * Restrict library access to owner only by removing it from other users' permissions
+ * This is called when the restrict_ai_library_to_owner setting is enabled
+ */
+export async function restrictLibraryToOwner(
+  provider: JellyfinProviderBase,
+  apiKey: string,
+  libraryGuid: string,
+  ownerUserId: string
+): Promise<void> {
+  try {
+    // Get all users
+    const users = await provider.fetch<JellyfinUser[]>('/Users', apiKey)
+    
+    // For each user (except owner), remove this library from their permissions
+    for (const user of users) {
+      // Skip the owner
+      if (user.Id === ownerUserId) {
+        continue
+      }
+      
+      // Get user's current library access
+      const currentAccess = await getUserLibraryAccess(provider, apiKey, user.Id)
+      
+      // If user has access to all folders, we can't restrict them
+      // (they will still see the library regardless)
+      if (currentAccess.enableAllFolders) {
+        continue
+      }
+      
+      // Check if this library is in their allowed folders
+      if (currentAccess.enabledFolders.includes(libraryGuid)) {
+        // Remove this library from their permissions
+        const updatedFolders = currentAccess.enabledFolders.filter(
+          (folderGuid) => folderGuid !== libraryGuid
+        )
+        await updateUserLibraryAccess(provider, apiKey, user.Id, updatedFolders)
+      }
+    }
+  } catch (err) {
+    // Non-fatal: log error but don't fail the entire process
+    console.warn(`Failed to restrict library ${libraryGuid} to owner ${ownerUserId}:`, err)
+  }
+}
+
+/**
  * Set the default sort order for a library for a specific user
  * This sets the DisplayPreferences so when the user first visits the library,
  * it will be sorted by the specified field.

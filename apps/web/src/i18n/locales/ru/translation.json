@@ -1662,7 +1662,10 @@
     "symlinkWarningTitle": "Важный:",
     "symlinkWarningBody": "Символические ссылки требуют, чтобы Aperture могла получить доступ к вашим медиафайлам по тем же путям, которые использует ваш медиасервер. Если вы используете Aperture в Docker, убедитесь, что монтирование томов совпадает.",
     "saving": "Сохранение…",
-    "saveChanges": "Сохранить изменения"
+    "saveChanges": "Сохранить изменения",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Нажмите, чтобы выбрать список…",

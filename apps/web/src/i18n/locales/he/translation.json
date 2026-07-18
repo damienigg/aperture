@@ -1912,7 +1912,10 @@
     "symlinkWarningTitle": "חָשׁוּב:",
     "symlinkWarningBody": "קישורי סימול מחייבים ש-Aperture תוכל לגשת לקבצי המדיה שלך באותם נתיבים בדיוק שבהם משתמש שרת המדיה שלך. אם אתה מפעיל את Aperture ב-Docker, ודא שהתועלות של עוצמת הקול תואמות.",
     "saving": "חִסָכוֹן…",
-    "saveChanges": "שמור שינויים"
+    "saveChanges": "שמור שינויים",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "לחץ כדי לבחור רשימה...",

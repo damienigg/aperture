@@ -24,6 +24,7 @@ import TvIcon from '@mui/icons-material/Tv'
 interface OutputFormatConfig {
   moviesUseSymlinks: boolean
   seriesUseSymlinks: boolean
+  restrictToOwner: boolean
 }
 
 export function OutputFormatSection() {
@@ -240,6 +241,35 @@ export function OutputFormatSection() {
               {t('settingsOutputFormat.explainStrmBestFor')}
             </Typography>
           </Card>
+        </Box>
+
+        {/* Library Visibility Restriction */}
+        <Box sx={{ mt: 3, p: 2, bgcolor: 'warning.light', borderRadius: 1 }}>
+          <FormControlLabel
+            control={
+              <Switch
+                checked={config.restrictToOwner}
+                onChange={(e) => updateConfig({ restrictToOwner: e.target.checked })}
+                color="primary"
+              />
+            }
+            label={
+              <Box>
+                <Typography variant="subtitle2" sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                  {t('settingsOutputFormat.restrictLibrariesToOwnerTitle')}
+                </Typography>
+                <Typography variant="caption" color="text.secondary">
+                  {t('settingsOutputFormat.restrictLibrariesToOwnerSubtitle')}
+                </Typography>
+              </Box>
+            }
+            sx={{ alignItems: 'flex-start', mb: 1 }}
+          />
+          <Alert severity="info" sx={{ mt: 1, py: 0.5 }} icon={false}>
+            <Typography variant="caption">
+              {t('settingsOutputFormat.restrictLibrariesNote')}
+            </Typography>
+          </Alert>
         </Box>
 
         {anyUseSymlinks && (

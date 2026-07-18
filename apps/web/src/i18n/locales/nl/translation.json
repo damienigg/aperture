@@ -1662,7 +1662,10 @@
     "symlinkWarningTitle": "Belangrijk:",
     "symlinkWarningBody": "Symlinks vereisen dat Aperture toegang heeft tot uw mediabestanden via exact dezelfde paden die uw mediaserver gebruikt. Als u Aperture in Docker gebruikt, zorg er dan voor dat de volumemounts overeenkomen.",
     "saving": "Besparing…",
-    "saveChanges": "Wijzigingen opslaan"
+    "saveChanges": "Wijzigingen opslaan",
+    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
+    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
+    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Klik om een ​​lijst te selecteren…",
