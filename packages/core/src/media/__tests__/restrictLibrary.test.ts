@@ -63,7 +63,7 @@ test('restrictLibraryToOwner should restrict library access to owner only', asyn
   })
 
   // Test the restriction function
-  await restrictLibraryToOwner(mockProvider as any, 'fake-api-key', 'lib123', 'owner')
+  await restrictLibraryToOwner(mockProvider, 'fake-api-key', 'lib123', 'owner')
   
   // Verify that fetch was called for getting users
   assert.ok(fetchMock.mock.callCount() > 0)
