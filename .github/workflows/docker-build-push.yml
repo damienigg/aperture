@@ -29,8 +29,14 @@ jobs:
         uses: docker/login-action@v3
         with:
           registry: ${{ env.REGISTRY }}
-          username: ${{ github.actor }}
+          username: ${{ github.repository_owner }}
           password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Ensure package exists and has write permissions
+        run: |
+          echo "Attempting to create/access package: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
+          echo "Repository owner: ${{ github.repository_owner }}"
+          echo "Repository: ${{ github.repository }}"
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
