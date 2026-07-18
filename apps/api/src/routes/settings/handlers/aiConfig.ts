@@ -627,12 +627,31 @@ export function registerAiConfigHandlers(fastify: FastifyInstance) {
 
       let testApiKey = apiKey
       let testBaseUrl = baseUrl
-      if (!testApiKey || !testBaseUrl) {
+      
+      // Only use saved credentials if explicitly needed based on provider requirements
+      const needsSavedCredentials = (!testApiKey || !testBaseUrl) && 
+        (testApiKey !== undefined || testBaseUrl !== undefined);
+      
+      if (needsSavedCredentials) {
         const savedConfig = await getFunctionConfig(fn as AIFunction)
         if (savedConfig && savedConfig.provider === provider) {
-          testApiKey = testApiKey || savedConfig.apiKey
-          testBaseUrl = testBaseUrl || savedConfig.baseUrl
+          // Only fill in missing values, don't override provided ones
+          if (testApiKey === undefined) {
+            testApiKey = savedConfig.apiKey ?? undefined
+          }
+          if (testBaseUrl === undefined) {
+            testBaseUrl = savedConfig.baseUrl ?? undefined
+          }
         }
+      }
+      
+      // If still missing required credentials, use the provided values (even if empty)
+      // This allows testing with empty credentials to validate the error handling
+      if (testApiKey === undefined) {
+        testApiKey = apiKey
+      }
+      if (testBaseUrl === undefined) {
+        testBaseUrl = baseUrl
       }
 
       const result = await testProviderConnection(

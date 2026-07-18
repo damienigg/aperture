@@ -683,8 +683,8 @@ export function AIFunctionCard({
           <TextField
             label={t('aiFunctionCard.apiKey')}
             type={showApiKey ? 'text' : 'password'}
-            value={apiKey || (isConfigured ? '••••••••••••••••' : '')}
-            onChange={(e) => setApiKey(e.target.value.replace(/•/g, ''))}
+            value={apiKey}
+            onChange={(e) => setApiKey(e.target.value)}
             size="small"
             fullWidth
             placeholder={t('aiFunctionCard.apiKeyPlaceholder', { provider: providerInfo.name })}
