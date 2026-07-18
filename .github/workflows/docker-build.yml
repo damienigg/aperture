@@ -107,8 +107,8 @@ jobs:
       - name: Build and push amd64 image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./docker/Dockerfile
+          context: docker
+          file: Dockerfile
           push: true
           tags: ${{ steps.tags.outputs.tags }}
           labels: ${{ steps.meta.outputs.labels }}
@@ -151,8 +151,8 @@ jobs:
       - name: Build and push arm64 image
         uses: docker/build-push-action@v5
         with:
-          context: .
-          file: ./docker/Dockerfile
+          context: docker
+          file: Dockerfile
           push: true
           tags: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:build-arm64
           labels: ${{ steps.meta.outputs.labels }}
