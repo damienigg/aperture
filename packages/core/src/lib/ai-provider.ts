@@ -348,7 +348,7 @@ export async function getEmbeddingModelInstance(): Promise<EmbeddingModel<string
 
     case 'deepinfra':
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (provider as any).embeddingModel(modelId)
+      return (provider as any).textEmbeddingModel(modelId)
 
     default:
       throw new Error(`Provider ${config.provider} does not support embeddings`)
