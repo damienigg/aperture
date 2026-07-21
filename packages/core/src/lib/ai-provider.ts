@@ -277,7 +277,8 @@ function createProviderInstance(providerConfig: ProviderConfig): unknown {
     case 'deepinfra':
       // Import our enhanced DeepInfra provider with context window fixes
       try {
-        const { createEnhancedDeepInfraProvider } = await import('./deepinfra-fix.js')
+        const deepinfraFixModule = await import('./deepinfra-fix.js')
+        const { createEnhancedDeepInfraProvider } = deepinfraFixModule
         const { provider } = createEnhancedDeepInfraProvider(providerConfig)
         instance = provider
       } catch (importError) {
@@ -387,7 +388,8 @@ export async function getChatModelInstance(): Promise<LanguageModel> {
   if (config.provider === 'deepinfra') {
     try {
       // Try to use our enhanced DeepInfra provider
-      const { initializeDeepInfraChatModel } = await import('./deepinfra-fix.js')
+      const deepinfraFixModule = await import('./deepinfra-fix.js')
+      const { initializeDeepInfraChatModel } = deepinfraFixModule
       return await initializeDeepInfraChatModel(config, config.model)
     } catch (enhancedError) {
       // If enhanced provider fails, fall back to standard approach

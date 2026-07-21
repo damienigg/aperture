@@ -7,7 +7,7 @@
 
 import { createDeepInfra } from '@ai-sdk/deepinfra'
 import type { LanguageModel } from 'ai'
-import type { ProviderConfig } from './ai-provider'
+import type { ProviderConfig } from './ai-provider.js'
 
 /**
  * Enhanced DeepInfra provider factory with proper context window handling
