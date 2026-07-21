@@ -275,10 +275,19 @@ function createProviderInstance(providerConfig: ProviderConfig): unknown {
       break
 
     case 'deepinfra':
-      instance = createDeepInfra({
-        apiKey: providerConfig.apiKey,
-        baseURL: providerConfig.baseUrl,
-      })
+      // Import our enhanced DeepInfra provider with context window fixes
+      try {
+        const { createEnhancedDeepInfraProvider } = await import('./deepinfra-fix.js')
+        const { provider } = createEnhancedDeepInfraProvider(providerConfig)
+        instance = provider
+      } catch (importError) {
+        // Fallback to standard provider if our enhanced version fails
+        logger.warn({ error: importError }, 'Failed to load enhanced DeepInfra provider, using standard')
+        instance = createDeepInfra({
+          apiKey: providerConfig.apiKey,
+          baseURL: providerConfig.baseUrl,
+        })
+      }
       break
 
       case 'openrouter':
@@ -372,6 +381,24 @@ export async function getChatModelInstance(): Promise<LanguageModel> {
   if (!validation.supported) {
     logger.warn({ provider: config.provider, model: config.model, reason: validation.reason },
       'Chat model may not support tool calling')
+  }
+
+  // Special handling for DeepInfra to fix context length issues
+  if (config.provider === 'deepinfra') {
+    try {
+      // Try to use our enhanced DeepInfra provider
+      const { initializeDeepInfraChatModel } = await import('./deepinfra-fix.js')
+      return await initializeDeepInfraChatModel(config, config.model)
+    } catch (enhancedError) {
+      // If enhanced provider fails, fall back to standard approach
+      logger.warn({ error: enhancedError }, 'DeepInfra enhanced provider failed, using standard')
+
+      const provider = createProviderInstance(config)
+      const modelId = config.model
+
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      return (provider as any)(modelId) as LanguageModel
+    }
   }
 
   const provider = createProviderInstance(config)
