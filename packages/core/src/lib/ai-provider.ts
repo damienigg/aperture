@@ -13,6 +13,7 @@ import { createGoogleGenerativeAI } from '@ai-sdk/google'
 import { createGroq } from '@ai-sdk/groq'
 import { createDeepSeek } from '@ai-sdk/deepseek'
 import { createDeepInfra } from '@ai-sdk/deepinfra'
+import { initializeDeepInfraChatModel } from './deepinfra-fix.js'
 import { createOpenRouter } from '@openrouter/ai-sdk-provider'
 import { createHuggingFace } from '@ai-sdk/huggingface'
 import type { LanguageModel, EmbeddingModel } from 'ai'
@@ -275,20 +276,11 @@ function createProviderInstance(providerConfig: ProviderConfig): unknown {
       break
 
     case 'deepinfra':
-      // Import our enhanced DeepInfra provider with context window fixes
-      try {
-        const deepinfraFixModule = await import('./deepinfra-fix.js')
-        const { createEnhancedDeepInfraProvider } = deepinfraFixModule
-        const { provider } = createEnhancedDeepInfraProvider(providerConfig)
-        instance = provider
-      } catch (importError) {
-        // Fallback to standard provider if our enhanced version fails
-        logger.warn({ error: importError }, 'Failed to load enhanced DeepInfra provider, using standard')
-        instance = createDeepInfra({
-          apiKey: providerConfig.apiKey,
-          baseURL: providerConfig.baseUrl,
-        })
-      }
+      // Use standard DeepInfra provider - enhanced provider is handled at higher level
+      instance = createDeepInfra({
+        apiKey: providerConfig.apiKey,
+        baseURL: providerConfig.baseUrl,
+      })
       break
 
       case 'openrouter':
@@ -388,8 +380,7 @@ export async function getChatModelInstance(): Promise<LanguageModel> {
   if (config.provider === 'deepinfra') {
     try {
       // Try to use our enhanced DeepInfra provider
-      const deepinfraFixModule = await import('./deepinfra-fix.js')
-      const { initializeDeepInfraChatModel } = deepinfraFixModule
+      // Note: Direct import to avoid dynamic import issues in Docker build
       return await initializeDeepInfraChatModel(config, config.model)
     } catch (enhancedError) {
       // If enhanced provider fails, fall back to standard approach
