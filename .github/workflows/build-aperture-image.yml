@@ -1,10 +1,8 @@
-name: Build and Push Docker Image to GHCR
+name: Build and Push Aperture Docker Image
 
 on:
   push:
-    branches: [ "**" ]
-  pull_request:
-    branches: [ "**" ]
+    branches: [ "main" ]
   workflow_dispatch:
 
 env:
@@ -31,12 +29,6 @@ jobs:
           registry: ${{ env.REGISTRY }}
           username: ${{ github.repository_owner }}
           password: ${{ secrets.GHCR_TOKEN }}
-
-      - name: Ensure package exists and has write permissions
-        run: |
-          echo "Attempting to create/access package: ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}"
-          echo "Repository owner: ${{ github.repository_owner }}"
-          echo "Repository: ${{ github.repository }}"
 
       - name: Extract metadata (tags, labels) for Docker
         id: meta
