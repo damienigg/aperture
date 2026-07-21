@@ -15,12 +15,15 @@ Navigate to **Admin → Settings → AI / LLM**
 | Provider | Type | Best For |
 |----------|------|----------|
 | **OpenAI** | Cloud | Most users, best quality |
-| **Ollama** | Local | Privacy, no API costs |
-| **Groq** | Cloud | Fast inference |
 | **Anthropic** | Cloud | Claude models |
-| **Google AI** | Cloud | Gemini models |
+| **DeepInfra** | Cloud | Cost-effective models (Qwen, DeepSeek) |
 | **DeepSeek** | Cloud | Cost-effective |
+| **Groq** | Cloud | Fast inference |
+| **Google AI** | Cloud | Gemini models |
+| **Ollama** | Local | Privacy, no API costs |
 | **OpenAI-Compatible** | Various | Custom endpoints |
+| **OpenRouter** | Cloud | Model routing |
+| **Hugging Face** | Cloud | Various models |
 
 ---
 
@@ -34,6 +37,36 @@ The default and most well-tested provider.
 2. Enter key in Aperture
 3. Test connection
 4. Save
+
+---
+
+## DeepInfra
+
+A cost-effective cloud provider offering access to various AI models including Qwen and DeepSeek models.
+
+### Setup
+
+1. Get API key from [deepinfra.com](https://deepinfra.com)
+2. Enter key in Aperture when selecting DeepInfra as your provider
+3. Select appropriate models for each function (embeddings, chat, text generation)
+4. Test connection
+5. Save
+
+### Available Models
+
+**Chat Models:**
+- `Qwen/Qwen3-32B` - Fast, cost-effective model for general chat
+- `deepseek-ai/DeepSeek-V3.2` - Excellent price/performance with tool calling
+- `deepseek-ai/DeepSeek-V4-Pro` - High-quality flagship model
+
+**Embedding Models:**
+- `Qwen/Qwen3-Embedding-0.6B` - Fast embedding model
+- `Qwen/Qwen3-Embedding-4B` - Mid-size embedding model with good quality
+- `Qwen/Qwen3-Embedding-8B` - High-quality embedding model
+
+### Notes
+
+DeepInfra models offer competitive pricing compared to other providers. The Qwen models are particularly well-suited for media recommendation tasks.
 
 ### Models Available
 

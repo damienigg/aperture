@@ -148,6 +148,12 @@ Under **Admin → Settings → System**, **Language defaults** sets the instance
 | [Backup & Restore](admin/backup-restore.md) | Protect your data |
 | [Database Management](admin/database-management.md) | Stats and purge |
 
+### Privacy & Security
+
+| Topic | Description |
+|-------|-------------|
+| [Library Access Control](admin/library-access-control.md) | Restrict AI libraries to owners |
+
 ### Troubleshooting
 
 | Topic | Description |
@@ -253,5 +259,6 @@ All admin documentation files:
 - [admin/backup-restore.md](admin/backup-restore.md)
 - [admin/database-management.md](admin/database-management.md)
 - [admin/external-database.md](admin/external-database.md)
+- [admin/library-access-control.md](admin/library-access-control.md)
 - [admin/api-errors.md](admin/api-errors.md)
 - [admin/recommended-workflow.md](admin/recommended-workflow.md)

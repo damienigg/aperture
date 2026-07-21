@@ -27,7 +27,7 @@ This guide covers local development setup, available scripts, and contribution g
 - pnpm 8+
 - Docker and Docker Compose
 - An Emby or Jellyfin server (for testing)
-- OpenAI API key
+- AI Provider API key (OpenAI, DeepInfra, or other supported provider)
 
 ---
 
@@ -173,6 +173,24 @@ docker compose up -d --build
 ### Using Pre-built Image
 
 ```bash
+docker compose up -d
+```
+
+### Automated Docker Builds
+
+This repository is configured with GitHub Actions to automatically build and push Docker images to GitHub Container Registry (GHCR):
+
+- Images are automatically built and pushed to `ghcr.io/damienigg/aperture` on every commit
+- The workflow is defined in `.github/workflows/docker-build-push.yml`
+- Images are tagged with both `latest` and the commit SHA
+
+To use the automated builds:
+
+```bash
+# Pull the latest image
+docker pull ghcr.io/damienigg/aperture:latest
+
+# Run with docker-compose
 docker compose up -d
 ```
 

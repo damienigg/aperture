@@ -1,12 +1,12 @@
 # Aperture
 
 [![Version](https://img.shields.io/badge/version-0.7.8-blue.svg)](https://github.com/dgruhin-hrizn/aperture/releases)
-[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fdgruhin--hrizn%2Faperture-blue?logo=docker)](https://github.com/dgruhin-hrizn/aperture/pkgs/container/aperture)
+[![Docker Image](https://img.shields.io/badge/docker-ghcr.io%2Fdamienigg%2Faperture-blue?logo=docker)](https://github.com/damienigg/aperture/pkgs/container/aperture)
 [![License: AGPL v3](https://img.shields.io/badge/License-AGPL_v3-blue.svg)](LICENSE)
 
 **Aperture** — AI-powered media recommendations for Emby & Jellyfin.
 
-Aperture creates personalized recommendation libraries for your media server users using OpenAI embeddings and pgvector similarity search. Recommendations appear as virtual libraries in your media server's home screen, with support for both **movies** and **TV series**.
+Aperture creates personalized recommendation libraries for your media server users using various AI providers (OpenAI, Anthropic, DeepInfra, etc.) and pgvector similarity search. Recommendations appear as virtual libraries in your media server's home screen, with support for both **movies** and **TV series**.
 
 ---
 
@@ -58,7 +58,12 @@ Open `http://YOUR_SERVER_IP:3456` and follow the 11-step guided setup:
 6. **Validate** — Verify output configuration and paths
 7. **Users** — Select which users receive recommendations
 8. **Top Picks** (Optional) — Configure global trending libraries
-9. **AI / LLM** — Enter your OpenAI API key (or configure Ollama/other providers)
+9. **AI / LLM** — Enter your API key for one of the supported providers:
+   - **OpenAI** — For OpenAI models (GPT-4, etc.)
+   - **Anthropic** — For Claude models
+   - **DeepInfra** — For cost-effective models (Qwen, DeepSeek, etc.)
+   - **Ollama** — For local/self-hosted models
+   - **Groq**, **Google AI**, **DeepSeek**, **OpenRouter**, **Hugging Face** — Various other providers
 10. **Initial Jobs** — Run first-time sync with real-time progress
 11. **Complete** — Review summary and next steps
 
@@ -82,9 +87,10 @@ docker-compose -f docker-compose.[your-platform].yml up -d
 ### AI Recommendations
 
 - **Personalized Libraries** — Creates dedicated "AI Picks" libraries for each user
-- **OpenAI Embeddings** — Semantic vectors for all your media
+- **Multi-Provider AI Support** — Works with OpenAI, Anthropic, DeepInfra, and more
 - **pgvector Similarity** — Lightning-fast vector similarity search
 - **Configurable Algorithm** — Tune weights for similarity, novelty, rating, and diversity
+- **Owner-Only Library Access** — AI-generated libraries are restricted to their owners by default
 
 ### Media Support
 
@@ -159,6 +165,8 @@ All schedules are configurable in **Admin → Jobs**.
 | [API Reference](docs/api-reference.md) | Complete API endpoint documentation                          |
 | [Architecture](docs/architecture.md)   | Technical overview, recommendation pipeline, database schema |
 | [Development](docs/development.md)     | Local dev setup, scripts, contribution guidelines            |
+| [DeepInfra Integration](docs/deepinfra-chat-fix.md) | DeepInfra provider setup and troubleshooting                 |
+| [Library Restriction Testing](docs/testing/library-restriction-testing.md) | Testing guide for owner-only library access                  |
 
 ---
 
@@ -166,8 +174,8 @@ All schedules are configurable in **Admin → Jobs**.
 
 - **Backend**: Fastify, TypeScript, PostgreSQL, pgvector
 - **Frontend**: React, Vite, MUI, React Router
-- **AI**: OpenAI Embeddings & GPT models
-- **Infrastructure**: Docker, pnpm workspaces
+- **AI**: Multi-provider support (OpenAI, Anthropic, DeepInfra, etc.)
+- **Infrastructure**: Docker, pnpm workspaces, GitHub Actions CI/CD
 
 ---
 
