@@ -1913,9 +1913,9 @@
     "symlinkWarningBody": "Symlinks erfordern, dass Aperture auf deine Mediendateien unter exakt denselben Pfaden zugreifen kann, die dein Mediaserver nutzt. Wenn du Aperture in Docker betreibst, stelle sicher, dass die Volume-Mounts übereinstimmen.",
     "saving": "Speichere…",
     "saveChanges": "Änderungen speichern",
-    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
-    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
-    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
+    "restrictLibrariesToOwnerTitle": "Bibliotheken auf Besitzer beschränken",
+    "restrictLibrariesToOwnerSubtitle": "KI-Empfehlungsbibliotheken sind immer auf ihre jeweiligen Besitzer beschränkt",
+    "restrictLibrariesNote": "Hinweis: Diese Funktion ist immer für den Datenschutz aktiviert. Bisher konnten Benutzer mit \"Alle Ordner aktivieren\" diese Einschränkung umgehen."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Klicke, um eine Liste auszuwählen…",

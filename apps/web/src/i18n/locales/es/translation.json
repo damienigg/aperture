@@ -1913,9 +1913,9 @@
     "symlinkWarningBody": "Los enlaces simbólicos requieren que Aperture pueda acceder a sus archivos multimedia exactamente en las mismas rutas que utiliza su servidor multimedia. Si está ejecutando Aperture en Docker, asegúrese de que los montajes de volumen coincidan.",
     "saving": "Ahorro…",
     "saveChanges": "Guardar cambios",
-    "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
-    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
-    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users."
+    "restrictLibrariesToOwnerTitle": "Restringir bibliotecas al propietario",
+    "restrictLibrariesToOwnerSubtitle": "Las bibliotecas de recomendaciones de IA siempre están restringidas a sus respectivos propietarios",
+    "restrictLibrariesNote": "Nota: Esta función está siempre habilitada para la protección de privacidad. Previamente, los usuarios con \"Habilitar todas las carpetas\" podían ignorar esta restricción."
   },
   "settingsMdblistSelector": {
     "placeholderClick": "Haga clic para seleccionar una lista...",

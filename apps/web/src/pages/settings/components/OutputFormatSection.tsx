@@ -243,13 +243,13 @@ export function OutputFormatSection() {
           </Card>
         </Box>
 
-        {/* Library Visibility Restriction */}
-        <Box sx={{ mt: 3, p: 2, bgcolor: 'warning.light', borderRadius: 1 }}>
+        {/* Library Visibility Restriction - NOW ALWAYS ENABLED */}
+        <Box sx={{ mt: 3, p: 2, bgcolor: 'success.light', borderRadius: 1 }}>
           <FormControlLabel
             control={
               <Switch
-                checked={config.restrictToOwner}
-                onChange={(e) => updateConfig({ restrictToOwner: e.target.checked })}
+                checked={true}
+                disabled={true}
                 color="primary"
               />
             }
@@ -265,9 +265,9 @@ export function OutputFormatSection() {
             }
             sx={{ alignItems: 'flex-start', mb: 1 }}
           />
-          <Alert severity="info" sx={{ mt: 1, py: 0.5 }} icon={false}>
+          <Alert severity="success" sx={{ mt: 1, py: 0.5 }} icon={false}>
             <Typography variant="caption">
-              {t('settingsOutputFormat.restrictLibrariesNote')}
+              This feature is now always enabled for privacy protection. AI recommendation libraries are always restricted to their owners.
             </Typography>
           </Alert>
         </Box>

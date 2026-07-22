@@ -1720,8 +1720,8 @@
     "symlinkWarningTitle": "Important:",
     "symlinkWarningBody": "Symlinks require that Aperture can access your media files at the exact same paths that your media server uses. If you're running Aperture in Docker, ensure the volume mounts match.",
     "restrictLibrariesToOwnerTitle": "Restrict Libraries to Owner",
-    "restrictLibrariesToOwnerSubtitle": "Only show AI recommendation libraries to their respective owners",
-    "restrictLibrariesNote": "Note: Users with \"Enable all folders\" will still see all libraries. This setting only affects regular users.",
+    "restrictLibrariesToOwnerSubtitle": "AI recommendation libraries are always restricted to their respective owners",
+    "restrictLibrariesNote": "Note: This feature is always enabled for privacy protection. Previously, users with \"Enable all folders\" could bypass this restriction.",
     "saving": "Saving…",
     "saveChanges": "Save Changes"
   },
