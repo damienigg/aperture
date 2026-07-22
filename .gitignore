@@ -57,3 +57,5 @@ test-results/
 
 # User uploads
 apps/api/uploads/
+.aider*
+.opencode/
