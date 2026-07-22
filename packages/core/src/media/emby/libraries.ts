@@ -274,11 +274,9 @@ export async function restrictLibraryToOwner(
       // Get user's current library access
       const currentAccess = await getUserLibraryAccess(provider, apiKey, user.Id)
       
-      // If user has access to all folders, we can't restrict them
-      // (they will still see the library regardless)
-      if (currentAccess.enableAllFolders) {
-        continue
-      }
+      // NOTE: Even users with access to all folders will be restricted
+      // This override ensures AI libraries are truly restricted to owners only
+      // Previously: if (currentAccess.enableAllFolders) { continue }
       
       // Check if this library is in their allowed folders
       if (currentAccess.enabledFolders.includes(libraryGuid)) {
