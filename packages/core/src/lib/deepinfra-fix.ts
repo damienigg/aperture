@@ -138,27 +138,35 @@ export async function initializeDeepInfraChatModel(
     }
 
     // Apply token limit fix for DeepInfra models to prevent 65536 > 40960 error
-    // Wrap model methods to enforce safe token limits (DeepInfra max is 40960)
-    const wrappedModel = {
-      ...baseModel,
-      specification: (baseModel as any).specification,
-      doStream: (baseModel as any).doStream ? async (options: any) => {
-        // Ensure max_tokens doesn't exceed DeepInfra's limit
+    // Instead of creating a full wrapper, we'll patch the methods directly on the model
+    // First, save references to the original methods
+    const originalDoStream = (baseModel as any).doStream;
+    const originalDoGenerate = (baseModel as any).doGenerate;
+
+    // Patch doStream method if it exists
+    if (originalDoStream) {
+      (baseModel as any).doStream = async function(options: any) {
+        // Ensure max_tokens doesn't exceed DeepInfra's limit (40960)
         if (options && options.maxTokens && options.maxTokens > 40000) {
-          options.maxTokens = 40000
+          options.maxTokens = 40000;
         }
-        return await (baseModel as any).doStream(options)
-      } : undefined,
-      doGenerate: (baseModel as any).doGenerate ? async (options: any) => {
-        // Ensure maxTokens doesn't exceed DeepInfra's limit
-        if (options && options.maxTokens && options.maxTokens > 40000) {
-          options.maxTokens = 40000
-        }
-        return await (baseModel as any).doGenerate(options)
-      } : undefined
+        return await originalDoStream.call(this, options);
+      };
     }
 
-    return wrappedModel as unknown as LanguageModel
+    // Patch doGenerate method if it exists
+    if (originalDoGenerate) {
+      (baseModel as any).doGenerate = async function(options: any) {
+        // Ensure maxTokens doesn't exceed DeepInfra's limit (40960)
+        if (options && options.maxTokens && options.maxTokens > 40000) {
+          options.maxTokens = 40000;
+        }
+        return await originalDoGenerate.call(this, options);
+      };
+    }
+
+    // Return the modified model
+    return baseModel as LanguageModel;
   } catch (error) {
     // If the primary model fails, try a fallback
     console.error(`Failed to initialize DeepInfra model ${modelId}:`, error)

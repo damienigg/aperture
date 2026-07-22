@@ -393,27 +393,35 @@ export async function getChatModelInstance(): Promise<LanguageModel> {
       const baseModel = (provider as any)(modelId) as LanguageModel
 
       // Apply token limit fix for DeepInfra models to prevent 65536 > 40960 error
-      // Wrap model methods to enforce safe token limits
-      const wrappedModel = {
-        ...baseModel,
-        specification: baseModel.specification,
-        doStream: baseModel.doStream ? async (options: any) => {
+      // Instead of creating a full wrapper, we'll patch the methods directly on the model
+      // First, save references to the original methods
+      const originalDoStream = (baseModel as any).doStream;
+      const originalDoGenerate = (baseModel as any).doGenerate;
+
+      // Patch doStream method if it exists
+      if (originalDoStream) {
+        (baseModel as any).doStream = async function(options: any) {
           // Ensure max_tokens doesn't exceed DeepInfra's limit (40960)
           if (options && options.maxTokens && options.maxTokens > 40000) {
-            options.maxTokens = 40000
+            options.maxTokens = 40000;
           }
-          return await baseModel.doStream!(options)
-        } : undefined,
-        doGenerate: baseModel.doGenerate ? async (options: any) => {
-          // Ensure maxTokens doesn't exceed DeepInfra's limit (40960)
-          if (options && options.maxTokens && options.maxTokens > 40000) {
-            options.maxTokens = 40000
-          }
-          return await baseModel.doGenerate!(options)
-        } : undefined
+          return await originalDoStream.call(this, options);
+        };
       }
 
-      return wrappedModel as LanguageModel
+      // Patch doGenerate method if it exists
+      if (originalDoGenerate) {
+        (baseModel as any).doGenerate = async function(options: any) {
+          // Ensure maxTokens doesn't exceed DeepInfra's limit (40960)
+          if (options && options.maxTokens && options.maxTokens > 40000) {
+            options.maxTokens = 40000;
+          }
+          return await originalDoGenerate.call(this, options);
+        };
+      }
+
+      // Return the modified model
+      return baseModel as LanguageModel;
     }
   }
 
