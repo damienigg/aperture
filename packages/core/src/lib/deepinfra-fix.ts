@@ -125,7 +125,7 @@ export async function initializeDeepInfraChatModel(
     const { getModel } = createEnhancedDeepInfraProvider(providerConfig)
 
     // Try to get the model
-    const model = getModel(modelId)
+    const baseModel = getModel(modelId)
 
     // Test the model with a simple prompt to ensure it's working
     // This helps catch initialization issues early
@@ -137,7 +137,28 @@ export async function initializeDeepInfraChatModel(
       console.warn(`Model test failed (continuing anyway):`, testError)
     }
 
-    return model
+    // Apply token limit fix for DeepInfra models to prevent 65536 > 40960 error
+    // Wrap model methods to enforce safe token limits (DeepInfra max is 40960)
+    const wrappedModel = {
+      ...baseModel,
+      specification: (baseModel as any).specification,
+      doStream: (baseModel as any).doStream ? async (options: any) => {
+        // Ensure max_tokens doesn't exceed DeepInfra's limit
+        if (options && options.maxTokens && options.maxTokens > 40000) {
+          options.maxTokens = 40000
+        }
+        return await (baseModel as any).doStream(options)
+      } : undefined,
+      doGenerate: (baseModel as any).doGenerate ? async (options: any) => {
+        // Ensure maxTokens doesn't exceed DeepInfra's limit
+        if (options && options.maxTokens && options.maxTokens > 40000) {
+          options.maxTokens = 40000
+        }
+        return await (baseModel as any).doGenerate(options)
+      } : undefined
+    }
+
+    return wrappedModel as unknown as LanguageModel
   } catch (error) {
     // If the primary model fails, try a fallback
     console.error(`Failed to initialize DeepInfra model ${modelId}:`, error)

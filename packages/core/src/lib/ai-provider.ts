@@ -383,14 +383,37 @@ export async function getChatModelInstance(): Promise<LanguageModel> {
       // Note: Direct import to avoid dynamic import issues in Docker build
       return await initializeDeepInfraChatModel(config, config.model)
     } catch (enhancedError) {
-      // If enhanced provider fails, fall back to standard approach
-      logger.warn({ error: enhancedError }, 'DeepInfra enhanced provider failed, using standard')
+      // If enhanced provider fails, fall back to standard approach with token limit fix
+      logger.warn({ error: enhancedError }, 'DeepInfra enhanced provider failed, using standard with token limit fix')
 
       const provider = createProviderInstance(config)
       const modelId = config.model
 
       // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      return (provider as any)(modelId) as LanguageModel
+      const baseModel = (provider as any)(modelId) as LanguageModel
+
+      // Apply token limit fix for DeepInfra models to prevent 65536 > 40960 error
+      // Wrap model methods to enforce safe token limits
+      const wrappedModel = {
+        ...baseModel,
+        specification: baseModel.specification,
+        doStream: baseModel.doStream ? async (options: any) => {
+          // Ensure max_tokens doesn't exceed DeepInfra's limit (40960)
+          if (options && options.maxTokens && options.maxTokens > 40000) {
+            options.maxTokens = 40000
+          }
+          return await baseModel.doStream!(options)
+        } : undefined,
+        doGenerate: baseModel.doGenerate ? async (options: any) => {
+          // Ensure maxTokens doesn't exceed DeepInfra's limit (40960)
+          if (options && options.maxTokens && options.maxTokens > 40000) {
+            options.maxTokens = 40000
+          }
+          return await baseModel.doGenerate!(options)
+        } : undefined
+      }
+
+      return wrappedModel as LanguageModel
     }
   }
 
